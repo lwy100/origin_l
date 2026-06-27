@@ -1,0 +1,171 @@
+.ambient {
+  position: fixed;
+  right: -18rem;
+  bottom: -20rem;
+  z-index: -1;
+  width: min(72vw, 760px);
+  aspect-ratio: 1;
+  border-radius: 40% 60% 45% 55%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  filter: blur(80px);
+  opacity: .22;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes drift { to { transform: translate(-5vw, -3vw) rotate(18deg); } }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 16px clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 800 clamp(18px, 2vw, 28px)/1 var(--display);
+  text-decoration: none;
+  letter-spacing: -.03em;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--bg);
+  font: 900 17px/1 "Space Grotesk", sans-serif;
+}
+
+.site-nav { display: flex; align-items: center; gap: 8px; }
+.site-nav a {
+  padding: 9px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 800;
+  border-radius: 999px;
+}
+.site-nav a:hover { color: var(--text); background: var(--panel); }
+.menu-button { display: none; }
+
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, .76fr);
+  gap: clamp(30px, 6vw, 84px);
+  align-items: center;
+}
+
+.hero h1 {
+  max-width: 980px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(56px, 9vw, 126px);
+  font-weight: 900;
+  letter-spacing: -.07em;
+  line-height: .92;
+}
+
+body[data-theme="paper"] .hero h1,
+body[data-theme="ink"] .hero h1 { letter-spacing: .02em; }
+
+.hero h1 span {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-text {
+  max-width: 760px;
+  margin: 26px 0 0;
+  color: var(--muted);
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.85;
+  font-weight: 600;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+.spark-card {
+  position: absolute;
+  left: clamp(20px, 6vw, 84px);
+  bottom: 34px;
+  max-width: min(620px, calc(100% - 40px));
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-strong) 90%, transparent);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.stack-section,
+.contact-section {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
+  gap: clamp(30px, 6vw, 84px);
+}
+
+.contact-section { align-items: center; }
+
+@media (max-width: 940px) {
+  .hero,
+  .stack-section,
+  .contact-section { grid-template-columns: 1fr; }
+  .spark-card { position: static; margin-top: 22px; border-radius: var(--radius); }
+}
+
+@media (max-width: 680px) {
+  .site-header { align-items: flex-start; }
+  .menu-button {
+    display: inline-flex;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--text);
+    font-weight: 900;
+  }
+  .site-nav {
+    display: none;
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 70px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    box-shadow: var(--shadow);
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .site-nav.open { display: flex; }
+  .hero h1 { font-size: clamp(48px, 15vw, 76px); }
+}
+
+.about-section {
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(320px, 1.1fr);
+  gap: clamp(30px, 6vw, 84px);
+  align-items: start;
+}
+
+@media (max-width: 940px) {
+  .about-section { grid-template-columns: 1fr; }
+}

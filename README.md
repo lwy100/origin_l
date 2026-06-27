@@ -1,16 +1,46 @@
-# Wanyuan's Living Room
+# Signal Garden
 
-一个复古漫画 / neo-brutalism 风格的个人静态主页，参考 `Jolin-Jiang-Studio/v2-living-room` 的“网络客厅”概念重新构建。
+一个匿名、轻松、活泼的个人静态主页。页面只简单透露“大模型背景”，重点放在旅行打卡、好玩的小交互和可继续扩展的个人表达上。
 
-## 文件
+## 快速开始
 
-- `index.html`：页面结构与内容
-- `styles.css`：视觉样式和响应式布局
-- `script.js`：移动端菜单、便利贴交互
-- `.github/workflows/pages.yml`：GitHub Pages 自动部署工作流
+```bash
+python3 -m http.server 4173
+```
 
-## 自定义
+然后访问：
 
-1. 在 `index.html` 中替换姓名、简介、项目、邮箱和 GitHub 链接。
-2. 在 `script.js` 的 `notes` 数组中替换近期笔记。
-3. 推送到 GitHub 后，在仓库 Settings → Pages 中选择 GitHub Actions 部署。
+```text
+http://127.0.0.1:4173/
+```
+
+## 项目结构
+
+```text
+index.html                 # 页面结构
+assets/css/main.css        # 样式入口
+assets/css/tokens.css      # 主题变量
+assets/css/base.css        # 基础样式
+assets/css/layout.css      # 页面布局
+assets/css/components.css  # 组件样式
+assets/js/app.js           # 脚本入口
+assets/js/data/content.js  # 可编辑文案数据
+assets/js/data/places.js   # 旅行目的地数据
+assets/js/modules/         # 交互模块
+docs/ARCHITECTURE.md       # 架构说明
+```
+
+## 当前内容
+
+- 默认不展示真实姓名
+- 联系邮箱：`1142516819@qq.com`
+- 内置四套候选风格：霓虹训练场、纸上实验室、像素游乐园、水墨终端
+- 交互包括主题切换、出门签、旅行实验室、随机推荐、轻松任务卡片、复制邮箱
+
+## 扩展方式
+
+- 改文案：编辑 `assets/js/data/content.js`
+- 改旅行地/推荐池/城市漫游：编辑 `assets/js/data/places.js`
+- 加新交互：在 `assets/js/modules/` 新建模块，并在 `assets/js/app.js` 初始化
+- 加新主题：在 `assets/css/tokens.css` 增加 `body[data-theme="..."]` 变量
+- 加图片素材：放入 `assets/images/`，在 HTML 或 CSS 中用相对路径引用

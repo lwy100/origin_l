@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="万源的网络客厅：作品、笔记、兴趣与联系方式。" />
-  <title>万源的网络客厅 · Wanyuan's Living Room</title>
+  <meta name="description" content="一位有大模型背景的年轻人的匿名主页：轻松、活泼、爱旅行，也爱把有趣东西做出来。" />
+  <title>Signal Garden · 旅行和一点点大模型</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+SC:wght@400;600;700;900&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Space+Grotesk:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
+<body data-theme="neon">
+  <div class="ambient" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="回到首页"><span>LWY</span> Living Room</a>
-    <button class="menu-button" aria-expanded="false" aria-controls="site-nav">☰</button>
+    <a class="brand" href="#top" aria-label="回到首页">
+      <span class="brand-mark">PT</span>
+      <span>Signal Garden</span>
+    </a>
+    <button class="menu-button" aria-expanded="false" aria-controls="site-nav">菜单</button>
     <nav id="site-nav" class="site-nav" aria-label="主导航">
+      <a href="#versions">选风格</a>
       <a href="#about">关于</a>
-      <a href="#projects">作品</a>
-      <a href="#notes">笔记</a>
+      <a href="#travel-lab">旅行实验室</a>
+      <a href="#recommendations">随机推荐</a>
+      <a href="#playground">玩具箱</a>
       <a href="#contact">联系</a>
     </nav>
   </header>
@@ -26,118 +31,136 @@
   <main id="top">
     <section class="hero section-shell">
       <div class="hero-copy">
-        <p class="sticker">WELCOME, TAKE A SEAT!</p>
-        <h1>你好，我是<br><em>万源</em></h1>
-        <p class="hero-text">这里是我的网络客厅：放一些正在做的项目、长期关注的问题、生活里的灵感，以及可以和我打招呼的入口。</p>
+        <p class="eyebrow"> 大模型背景 / 旅行脑袋</p>
+        <h1>生活要松弛，<br><span>地图要点亮。</span></h1>
+        <p class="hero-text">时间和空间留给好玩的网页、小实验、旅行清单和一点点年轻人的快乐野心。</p>
         <div class="hero-actions">
-          <a class="button primary" href="#projects">看看作品</a>
-          <a class="button dark" href="#contact">联系我</a>
+          <a class="button primary" href="#travel-lab">逛旅行实验室</a>
+          <button class="button secondary" type="button" id="spark-button">抽一张出门签</button>
         </div>
       </div>
-      <aside class="room-card" aria-label="个人卡片">
-        <div class="card-pin"></div>
-        <h2>ROOM CARD</h2>
-        <dl>
-          <div><dt>状态</dt><dd>持续学习 / 持续构建</dd></div>
-          <div><dt>关注</dt><dd>产品、AI、效率工具、Web</dd></div>
-          <div><dt>风格</dt><dd>直接、好奇、爱把想法做出来</dd></div>
-          <div><dt>坐标</dt><dd>China · Online</dd></div>
-        </dl>
+      <aside class="lab-card" aria-label="个人关键词面板">
+        <div class="signal"><span></span><span></span><span></span></div>
+        <h2>Today mood</h2>
+        <ul>
+          <li><b>背景</b><span>搞大模型ing</span></li>
+          <li><b>状态</b><span>想出去玩，也想把网页做好</span></li>
+          <li><b>爱好</b><span>旅行打卡、奇怪小工具、灵感收集</span></li>
+          <li><b>人设</b><span>轻松活泼，但靠谱</span></li>
+        </ul>
       </aside>
-      <span class="sound s1">BOOM!</span>
-      <span class="sound s2">IDEA!</span>
+      <p class="spark-card" id="spark-card" aria-live="polite">出门签：先把想去的地方收藏起来，快乐会自己发芽。</p>
     </section>
 
-    <section class="map section-shell" aria-labelledby="map-title">
-      <h2 id="map-title" class="section-title">客厅导览</h2>
-      <p class="section-lead">这个页面参考了“网络客厅”的概念：不用过度正式，用一个更有温度的空间把人、作品和想法串起来。</p>
-      <div class="bento">
-        <a class="tile pink" href="#about"><span>01</span><strong>关于我</strong><small>背景 / 关键词</small></a>
-        <a class="tile cyan" href="#projects"><span>02</span><strong>项目陈列</strong><small>做过什么 / 正在做什么</small></a>
-        <a class="tile yellow" href="#notes"><span>03</span><strong>近期笔记</strong><small>想法 / 观察 / 复盘</small></a>
-        <a class="tile ink" href="#contact"><span>04</span><strong>打个招呼</strong><small>合作 / 交流 / 反馈</small></a>
+    <section id="versions" class="section-shell versions-section">
+      <div class="section-head">
+        <p class="eyebrow">四版视觉方向</p>
+        <h2 class="section-title">你可以直接点着挑</h2>
+        <p class="section-lead">不是四个完全独立页面，而是四套视觉皮肤。你选中喜欢的方向后，我可以继续把那一版深化成最终主页。</p>
+      </div>
+      <div class="theme-grid" role="list" aria-label="风格选择">
+        <button class="theme-card active" type="button" data-set-theme="neon" role="listitem">
+          <span>01</span><b>霓虹训练场</b><small>年轻、技术感、最有冲劲</small>
+        </button>
+        <button class="theme-card" type="button" data-set-theme="paper" role="listitem">
+          <span>02</span><b>纸上实验室</b><small>书卷气 + 工程笔记</small>
+        </button>
+        <button class="theme-card" type="button" data-set-theme="pixel" role="listitem">
+          <span>03</span><b>像素游乐园</b><small>活泼、轻松、有记忆点</small>
+        </button>
+        <button class="theme-card" type="button" data-set-theme="ink" role="listitem">
+          <span>04</span><b>水墨终端</b><small>古风保留，但更聪明</small>
+        </button>
       </div>
     </section>
 
-    <section id="about" class="section-shell split-section">
+    <section id="about" class="section-shell about-section">
       <div>
-        <h2 class="section-title">关于我</h2>
-        <p class="section-lead">我喜欢把复杂的问题拆成可以执行的小块，也喜欢用网页、自动化和 AI 工具把灵感快速变成可用的东西。</p>
+        <p class="eyebrow">关于</p>
+        <h2 class="section-title">轻轻透露一点背景</h2>
+        <p class="section-lead">有一点大模型相关技术背景，。但这个主页不打算变成简历，更多是放松、记录、打卡、分享一些想去和去过的地方。</p>
       </div>
-      <div class="timeline">
-        <article>
-          <span>NOW</span>
-          <h3>构建个人网络空间</h3>
-          <p>把作品、笔记和联系方式整理成一个可访问的主页。</p>
+      <div class="mood-board">
+        <article><span>LLM</span><h3>一点技术底色</h3><p>懂一些模型、和agent 。</p></article>
+        <article><span>FUN</span><h3>一点活泼能量</h3><p>喜欢把想法做成能点、能玩、能继续长大的小页面。</p></article>
+        <article><span>MAP</span><h3>很多旅行欲望</h3><p>5A、古镇、雪山、海岛、城市漫游，都想慢慢点亮。</p></article>
+      </div>
+    </section>
+
+    <section id="travel-lab" class="section-shell travel-section">
+      <div class="section-head compact">
+        <p class="eyebrow">旅行实验室</p>
+        <h2 class="section-title">去过 / 没去过的好地方</h2>
+        <p class="section-lead">灵感来自小姜实验室的足迹板块：把 5A 景区、世界遗产和一些小众/高热目的地放在一起。区域先简化成西南、西北、中部、东北、东南，点击“点亮足迹”会本地记录在你的浏览器里。</p>
+      </div>
+      <div class="travel-summary" aria-label="旅行统计">
+        <div><b id="visited-count">0</b><span>已点亮</span></div>
+        <div><b id="place-count">0</b><span>总目的地</span></div>
+        <div><b id="wishlist-count">0</b><span>还没去</span></div>
+      </div>
+      <div class="region-tabs" id="region-tabs" aria-label="目的地区域"></div>
+      <div class="place-grid" id="place-grid" aria-live="polite"></div>
+    </section>
+
+
+    <section id="recommendations" class="section-shell recommendation-section">
+      <div class="section-head compact">
+        <p class="eyebrow">随机推荐</p>
+        <h2 class="section-title">今天去哪儿玩？</h2>
+        <p class="section-lead">高热旅行地随机抽几张；城市漫游会尝试根据访问 IP 判断城市/省份，优先推荐附近路线。定位失败也没关系，会随机给你几条好走的。</p>
+        <button class="button secondary" type="button" data-refresh-recommendations>换一批推荐</button>
+      </div>
+      <div class="recommend-layout">
+        <article class="recommend-panel">
+          <div class="recommend-head"><span>HOT</span><h3>高热旅行地</h3></div>
+          <div class="recommend-grid" id="hot-recommend-grid"></div>
         </article>
-        <article>
-          <span>BUILD</span>
-          <h3>从想法到原型</h3>
-          <p>偏爱快速验证，用清晰的交互和内容让别人一眼看懂。</p>
-        </article>
-        <article>
-          <span>LEARN</span>
-          <h3>持续学习</h3>
-          <p>关注新技术如何真正改善工作流，而不是只停留在概念。</p>
+        <article class="recommend-panel">
+          <div class="recommend-head"><span>CITY</span><h3>城市漫游</h3></div>
+          <p class="location-label" id="location-label">正在尝试根据访问位置推荐...</p>
+          <div class="recommend-grid" id="city-recommend-grid"></div>
         </article>
       </div>
     </section>
 
-    <section id="projects" class="section-shell">
-      <h2 class="section-title">项目陈列</h2>
-      <p class="section-lead">先放几个占位项目，后续可以替换成你的真实作品、GitHub 链接、截图和说明。</p>
-      <div class="project-grid">
-        <article class="project-card">
-          <div class="project-visual">⚡<span>WEB</span></div>
-          <h3>个人网络客厅</h3>
-          <p>一个复古漫画风的个人主页，适合展示作品、笔记和联系入口。</p>
-          <ul><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-        </article>
-        <article class="project-card">
-          <div class="project-visual alt">🤖<span>AI</span></div>
-          <h3>AI 工作流实验</h3>
-          <p>记录用 AI 辅助写作、分析、编码和自动化的实践经验。</p>
-          <ul><li>Prompt</li><li>Automation</li><li>Productivity</li></ul>
-        </article>
-        <article class="project-card">
-          <div class="project-visual warm">📌<span>NOTE</span></div>
-          <h3>灵感收纳盒</h3>
-          <p>把看到的好产品、好界面、好想法整理成可复用的知识库。</p>
-          <ul><li>Research</li><li>Design</li><li>Notes</li></ul>
-        </article>
+    <section id="playground" class="section-shell playground-section">
+      <div class="section-head compact">
+        <p class="eyebrow">玩具箱</p>
+        <h2 class="section-title">保留一点能点的东西</h2>
+        <p class="section-lead">主页不必太严肃。点一下下面的小按钮，随机获得一个轻松任务。</p>
       </div>
-    </section>
-
-    <section id="notes" class="section-shell split-section notes-section">
-      <div>
-        <h2 class="section-title">近期笔记</h2>
-        <p class="section-lead">像客厅墙上的便利贴一样，记录一些短想法。内容都在 <code>script.js</code> 里，方便直接修改。</p>
-        <button class="button primary" id="shuffle-note" type="button">换一张便利贴</button>
-      </div>
-      <article class="note-card" aria-live="polite">
-        <span id="note-tag">THOUGHT</span>
-        <h3 id="note-title">先让作品被看见</h3>
-        <p id="note-body">个人主页不需要一次性完美，先上线，再持续替换真实内容。</p>
+      <article class="loop-output" aria-live="polite">
+        <span id="loop-label">今日任务</span>
+        <h3 id="loop-title">给收藏夹加一个目的地</h3>
+        <p id="loop-body">选一个还没去过的地方，查三张图，想象一下如果周末出发会发生什么。</p>
       </article>
+      <div class="loop-panel relaxed-loop">
+        <button class="loop-step active" type="button" data-step="0"><span>想去</span><small>种草一个地方</small></button>
+        <button class="loop-step" type="button" data-step="1"><span>出发</span><small>做个轻计划</small></button>
+        <button class="loop-step" type="button" data-step="2"><span>拍照</span><small>留下证据</small></button>
+        <button class="loop-step" type="button" data-step="3"><span>回来</span><small>写两句复盘</small></button>
+      </div>
     </section>
 
     <section id="contact" class="section-shell contact-section">
       <div>
-        <h2 class="section-title">来客留言</h2>
-        <p class="section-lead">如果你想交流项目、想法或合作，可以先从这里开始。</p>
+        <p class="eyebrow">联系</p>
+        <h2 class="section-title">如果你想打个招呼</h2>
+        <p class="section-lead">不署名，但可以收信。旅行建议、网页反馈、好玩的想法，或者大模型相关闲聊，都可以从一封邮件开始。</p>
       </div>
-      <div class="contact-panel">
-        <a href="mailto:hello@example.com"><span>Email</span><strong>hello@example.com</strong></a>
-        <a href="https://github.com/" target="_blank" rel="noreferrer"><span>GitHub</span><strong>替换成你的主页</strong></a>
-        <a href="#top"><span>Back</span><strong>回到客厅入口</strong></a>
+      <div class="contact-card">
+        <span>MAILBOX</span>
+        <a href="mailto:1142516819@qq.com">1142516819@qq.com</a>
+        <button type="button" id="copy-email">复制邮箱</button>
+        <p id="copy-status" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>Built with curiosity · © <span id="year"></span> Wanyuan</p>
+    <p>Anonymous LLM-ish traveler · signal garden for fun · © <span id="year"></span></p>
   </footer>
 
-  <script src="script.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
