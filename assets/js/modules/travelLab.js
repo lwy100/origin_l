@@ -1,4 +1,5 @@
 import { $, $$ } from "./dom.js";
+import { communityApi } from "./supabase.js";
 
 const STORE_KEY = "signalGardenTravelLab";
 
@@ -9,10 +10,11 @@ function loadStore() {
       visited: parsed.visited || {},
       likes: parsed.likes || {},
       comments: parsed.comments || {},
-      openComments: {}
+      openComments: {},
+      remoteLikeCounts: {}
     };
   } catch {
-    return { visited: {}, likes: {}, comments: {}, openComments: {} };
+    return { visited: {}, likes: {}, comments: {}, openComments: {}, remoteLikeCounts: {} };
   }
 }
 
@@ -56,6 +58,7 @@ export function initTravelLab(placesByRegion) {
   const regions = Object.keys(placesByRegion);
   let currentRegion = regions[0];
   const store = loadStore();
+  let usingSharedData = communityApi.isConfigured();
 
   function updateStats() {
     const total = flattenPlaces(placesByRegion).length;
@@ -76,7 +79,7 @@ export function initTravelLab(placesByRegion) {
   function renderCommentList(key) {
     const comments = store.comments[key] || [];
     if (!comments.length) return `<p class="comment-empty">还没有留言，来当第一个种草的人。</p>`;
-    return comments.slice().reverse().map(comment => `
+    return comments.map(comment => `
       <div class="comment-item">
         <div><b>${escapeHtml(comment.name || "匿名旅人")}</b><span>${formatTime(comment.ts)}</span></div>
         <p>${escapeHtml(comment.text)}</p>
@@ -90,6 +93,7 @@ export function initTravelLab(placesByRegion) {
       const key = placeKey(place);
       const isVisited = Boolean(store.visited[key]);
       const liked = Boolean(store.likes[key]);
+      const likeCount = usingSharedData ? Number(store.remoteLikeCounts[key] || 0) : (liked ? 1 : 0);
       const comments = store.comments[key] || [];
       const commentsOpen = Boolean(store.openComments[key]);
       return `
@@ -108,7 +112,7 @@ export function initTravelLab(placesByRegion) {
               ${isVisited ? "已点亮 ✓" : "点亮足迹"}
             </button>
             <button class="like-button ${liked ? "active" : ""}" type="button" data-action="like" data-place-key="${escapeHtml(key)}">
-              ${liked ? "❤️ 我也去过 ✓" : "🤍 我也去过"}
+              ${liked ? "❤️" : "🤍"} 我也去过 · ${likeCount}
             </button>
             <button class="comment-toggle ${commentsOpen ? "active" : ""}" type="button" data-action="toggle-comments" data-place-key="${escapeHtml(key)}">
               💬 留言 · ${comments.length}
@@ -119,12 +123,28 @@ export function initTravelLab(placesByRegion) {
             <form class="comment-form" data-place-key="${escapeHtml(key)}">
               <input name="name" type="text" maxlength="16" placeholder="昵称，可不填" />
               <textarea name="text" maxlength="120" rows="3" placeholder="给这个地方留一句话，比如：想去看日落！" required></textarea>
+              <p class="comment-form-status" role="status"></p>
               <button type="submit">留下脚印</button>
             </form>
           </div>
         </article>
       `;
     }).join("");
+  }
+
+  async function loadSharedActivity() {
+    if (!usingSharedData) return;
+    try {
+      const activity = await communityApi.getPlaceActivity();
+      store.remoteLikeCounts = activity.likeCounts;
+      store.likes = activity.likedPlaces;
+      store.comments = activity.comments;
+      renderPlaces();
+    } catch (error) {
+      console.warn("Shared travel data unavailable; using local storage.", error);
+      usingSharedData = false;
+      renderPlaces();
+    }
   }
 
   tabs.addEventListener("click", event => {
@@ -135,7 +155,7 @@ export function initTravelLab(placesByRegion) {
     renderPlaces();
   });
 
-  grid.addEventListener("click", event => {
+  grid.addEventListener("click", async event => {
     const button = event.target.closest("[data-action]");
     if (!button) return;
     const key = button.dataset.placeKey;
@@ -147,7 +167,21 @@ export function initTravelLab(placesByRegion) {
     }
 
     if (action === "like") {
-      store.likes[key] = !store.likes[key];
+      button.disabled = true;
+      if (usingSharedData) {
+        try {
+          const rows = await communityApi.togglePlaceLike(key);
+          const result = rows?.[0];
+          store.likes[key] = Boolean(result?.liked);
+          store.remoteLikeCounts[key] = Number(result?.like_count || 0);
+        } catch (error) {
+          console.warn("Shared like failed; using local storage.", error);
+          usingSharedData = false;
+          store.likes[key] = !store.likes[key];
+        }
+      } else {
+        store.likes[key] = !store.likes[key];
+      }
       if (!store.likes[key]) delete store.likes[key];
       store.visited[key] = Boolean(store.likes[key]) || Boolean(store.visited[key]);
     }
@@ -161,24 +195,41 @@ export function initTravelLab(placesByRegion) {
     updateStats();
   });
 
-  grid.addEventListener("submit", event => {
+  grid.addEventListener("submit", async event => {
     const form = event.target.closest(".comment-form");
     if (!form) return;
     event.preventDefault();
     const key = form.dataset.placeKey;
     const data = new FormData(form);
-    const text = String(data.get("text") || "").trim();
+    const text = String(data.get("text") || "").trim().slice(0, 120);
     const name = String(data.get("name") || "匿名旅人").trim().slice(0, 16) || "匿名旅人";
-    if (!text) return;
+    const submit = form.querySelector('button[type="submit"]');
+    const formStatus = form.querySelector(".comment-form-status");
+    if (!text || submit.disabled) return;
 
-    store.comments[key] = store.comments[key] || [];
-    store.comments[key].push({ name, text: text.slice(0, 120), ts: Date.now() });
-    store.openComments[key] = true;
-    saveStore(store);
-    renderPlaces();
+    submit.disabled = true;
+    formStatus.textContent = usingSharedData ? "正在发布..." : "正在保存...";
+    try {
+      let comment;
+      if (usingSharedData) {
+        comment = await communityApi.addPlaceComment({ placeKey: key, name, text });
+      } else {
+        comment = { name, text, ts: new Date().toISOString() };
+      }
+      store.comments[key] ||= [];
+      store.comments[key].unshift(comment);
+      store.openComments[key] = true;
+      saveStore(store);
+      renderPlaces();
+    } catch (error) {
+      console.error("Comment publish failed.", error);
+      submit.disabled = false;
+      formStatus.textContent = "发布失败，请稍后再试。";
+    }
   });
 
   renderTabs();
   renderPlaces();
   updateStats();
+  loadSharedActivity();
 }

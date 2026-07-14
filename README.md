@@ -44,3 +44,22 @@ docs/ARCHITECTURE.md       # 架构说明
 - 加新交互：在 `assets/js/modules/` 新建模块，并在 `assets/js/app.js` 初始化
 - 加新主题：在 `assets/css/tokens.css` 增加 `body[data-theme="..."]` 变量
 - 加图片素材：放入 `assets/images/`，在 HTML 或 CSS 中用相对路径引用
+
+
+## Supabase 共享留言与点赞
+
+页面在未配置 Supabase 时会继续使用浏览器 `localStorage`。要让所有访客共享留言和点赞：
+
+1. 在 Supabase 新建项目。
+2. 打开 SQL Editor，执行 `supabase/schema.sql`。
+3. 在 Project Settings / API 中复制 Project URL 和 **publishable key**（旧项目也可使用 `anon` key）。
+4. 编辑 `assets/js/config.js`：
+
+```js
+window.SIGNAL_GARDEN_SUPABASE = {
+  url: "https://YOUR_PROJECT.supabase.co",
+  publishableKey: "YOUR_PUBLISHABLE_OR_ANON_KEY"
+};
+```
+
+浏览器端绝不能填写 `service_role` 或 secret key。共享数据包括旅行地留言、“我也去过”累计点赞和短句累计点赞；旅行足迹仍只保存在访客自己的浏览器中。
