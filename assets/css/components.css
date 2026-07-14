@@ -424,3 +424,44 @@ body[data-theme="ink"] .brand-mark { border-radius: 50%; font-family: "Long Cang
 .comment-form button:disabled,
 .like-button:disabled,
 .quote-actions button:disabled { opacity: .55; cursor: wait; transform: none; }
+
+.owner-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.owner-controls button {
+  min-height: 36px;
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--panel-strong);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.owner-controls span { color: var(--muted); font-size: 12px; font-weight: 700; }
+.wish-state {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+.wish-state.active { border-style: solid; border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 28%, transparent); }
+body[data-theme="ink"] #quote-refresh {
+  border-color: color-mix(in srgb, var(--text) 60%, transparent);
+  color: #101712;
+  background: var(--text);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .24);
+}
+body[data-theme="ink"] #quote-refresh:hover {
+  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent);
+}

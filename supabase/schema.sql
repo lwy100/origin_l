@@ -11,6 +11,43 @@ create table if not exists public.place_comments (
   created_at timestamptz not null default now()
 );
 
+
+create table if not exists public.owner_visits (
+  place_key text primary key check (char_length(place_key) between 1 and 160),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.owner_visits enable row level security;
+revoke all on public.owner_visits from anon, authenticated;
+grant select on public.owner_visits to anon, authenticated;
+grant insert, delete on public.owner_visits to authenticated;
+
+drop policy if exists "public can read owner visits" on public.owner_visits;
+drop policy if exists "owner can insert visits" on public.owner_visits;
+drop policy if exists "owner can update visits" on public.owner_visits;
+drop policy if exists "owner can delete visits" on public.owner_visits;
+
+create policy "public can read owner visits"
+on public.owner_visits for select
+to anon, authenticated
+using (true);
+
+create policy "owner can insert visits"
+on public.owner_visits for insert
+to authenticated
+with check (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+
+create policy "owner can update visits"
+on public.owner_visits for update
+to authenticated
+using (lower(auth.jwt() ->> 'email') = '1142516819@qq.com')
+with check (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+
+create policy "owner can delete visits"
+on public.owner_visits for delete
+to authenticated
+using (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+
 create table if not exists public.place_likes (
   visitor_id uuid not null,
   place_key text not null check (char_length(place_key) between 1 and 160),

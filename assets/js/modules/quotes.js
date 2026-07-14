@@ -1,5 +1,5 @@
 import { $, $$ } from "./dom.js";
-import { communityApi } from "./supabase.js";
+import { communityApi } from "./supabase.js?v=20260714-6";
 
 const STORE_KEY = "signalGardenQuoteLikes";
 const CATEGORY_META = {

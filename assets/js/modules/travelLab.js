@@ -1,5 +1,5 @@
 import { $, $$ } from "./dom.js";
-import { communityApi } from "./supabase.js";
+import { authApi, communityApi } from "./supabase.js?v=20260714-6";
 
 const STORE_KEY = "signalGardenTravelLab";
 
@@ -11,10 +11,11 @@ function loadStore() {
       likes: parsed.likes || {},
       comments: parsed.comments || {},
       openComments: {},
-      remoteLikeCounts: {}
+      remoteLikeCounts: {},
+      ownerVisited: {}
     };
   } catch {
-    return { visited: {}, likes: {}, comments: {}, openComments: {}, remoteLikeCounts: {} };
+    return { visited: {}, likes: {}, comments: {}, openComments: {}, remoteLikeCounts: {}, ownerVisited: {} };
   }
 }
 
@@ -59,10 +60,15 @@ export function initTravelLab(placesByRegion) {
   let currentRegion = regions[0];
   const store = loadStore();
   let usingSharedData = communityApi.isConfigured();
+  let ownerMode = false;
+  const ownerLogin = $("#owner-login");
+  const ownerLogout = $("#owner-logout");
+  const ownerStatus = $("#owner-status");
 
   function updateStats() {
     const total = flattenPlaces(placesByRegion).length;
-    const visitedTotal = Object.values(store.visited).filter(Boolean).length;
+    const source = usingSharedData ? store.ownerVisited : store.visited;
+    const visitedTotal = Object.values(source).filter(Boolean).length;
     visitedCount.textContent = visitedTotal;
     placeCount.textContent = total;
     wishlistCount.textContent = Math.max(total - visitedTotal, 0);
@@ -91,7 +97,7 @@ export function initTravelLab(placesByRegion) {
     const list = placesByRegion[currentRegion] || [];
     grid.innerHTML = list.map(place => {
       const key = placeKey(place);
-      const isVisited = Boolean(store.visited[key]);
+      const isVisited = Boolean((usingSharedData ? store.ownerVisited : store.visited)[key]);
       const liked = Boolean(store.likes[key]);
       const likeCount = usingSharedData ? Number(store.remoteLikeCounts[key] || 0) : (liked ? 1 : 0);
       const comments = store.comments[key] || [];
@@ -108,9 +114,13 @@ export function initTravelLab(placesByRegion) {
           <p class="place-tag">${escapeHtml(place.tag)}</p>
           <div class="place-card-foot">
             <span class="visit-state">${isVisited ? "我去过" : "还没去"}</span>
-            <button class="wish-button ${isVisited ? "active" : ""}" type="button" data-action="visit" data-place-key="${escapeHtml(key)}">
-              ${isVisited ? "已点亮 ✓" : "点亮足迹"}
-            </button>
+            ${ownerMode ? `
+              <button class="wish-button ${isVisited ? "active" : ""}" type="button" data-action="visit" data-place-key="${escapeHtml(key)}">
+                ${isVisited ? "已点亮 ✓" : "点亮足迹"}
+              </button>
+            ` : `
+              <span class="wish-state ${isVisited ? "active" : ""}">${isVisited ? "站主已点亮 ✓" : "站主还没去"}</span>
+            `}
             <button class="like-button ${liked ? "active" : ""}" type="button" data-action="like" data-place-key="${escapeHtml(key)}">
               ${liked ? "❤️" : "🤍"} 我也去过 · ${likeCount}
             </button>
@@ -138,7 +148,9 @@ export function initTravelLab(placesByRegion) {
       const activity = await communityApi.getPlaceActivity();
       store.remoteLikeCounts = activity.likeCounts;
       store.likes = activity.likedPlaces;
+      store.ownerVisited = activity.ownerVisited;
       store.comments = activity.comments;
+      updateStats();
       renderPlaces();
     } catch (error) {
       console.warn("Shared travel data unavailable; using local storage.", error);
@@ -162,8 +174,17 @@ export function initTravelLab(placesByRegion) {
     const action = button.dataset.action;
 
     if (action === "visit") {
-      store.visited[key] = !store.visited[key];
-      if (!store.visited[key]) delete store.visited[key];
+      if (!ownerMode) return;
+      const nextVisited = !store.ownerVisited[key];
+      button.disabled = true;
+      try {
+        await communityApi.setOwnerVisit(key, nextVisited);
+        if (nextVisited) store.ownerVisited[key] = true;
+        else delete store.ownerVisited[key];
+      } catch (error) {
+        console.error("Owner visit update failed.", error);
+        if (ownerStatus) ownerStatus.textContent = "点亮失败，请重新登录后再试。";
+      }
     }
 
     if (action === "like") {
@@ -183,7 +204,7 @@ export function initTravelLab(placesByRegion) {
         store.likes[key] = !store.likes[key];
       }
       if (!store.likes[key]) delete store.likes[key];
-      store.visited[key] = Boolean(store.likes[key]) || Boolean(store.visited[key]);
+      if (!usingSharedData) store.visited[key] = Boolean(store.likes[key]) || Boolean(store.visited[key]);
     }
 
     if (action === "toggle-comments") {
@@ -228,8 +249,36 @@ export function initTravelLab(placesByRegion) {
     }
   });
 
+  async function refreshOwnerMode() {
+    ownerMode = usingSharedData && await authApi.isOwner();
+    if (ownerLogin) ownerLogin.hidden = ownerMode || !usingSharedData;
+    if (ownerLogout) ownerLogout.hidden = !ownerMode;
+    if (ownerStatus) ownerStatus.textContent = ownerMode ? "站主管理模式：可以点亮足迹" : "访客浏览模式：足迹只读";
+    renderPlaces();
+  }
+
+  ownerLogin?.addEventListener("click", async () => {
+    ownerLogin.disabled = true;
+    ownerStatus.textContent = "正在发送登录邮件...";
+    try {
+      await authApi.sendOwnerMagicLink();
+      ownerStatus.textContent = "登录链接已发送到站主邮箱，请查收。";
+    } catch (error) {
+      console.error("Owner login failed.", error);
+      ownerStatus.textContent = "登录邮件发送失败，请检查 Supabase Auth 设置。";
+    } finally {
+      ownerLogin.disabled = false;
+    }
+  });
+
+  ownerLogout?.addEventListener("click", async () => {
+    await authApi.signOut();
+    await refreshOwnerMode();
+  });
+
   renderTabs();
   renderPlaces();
   updateStats();
   loadSharedActivity();
+  refreshOwnerMode();
 }

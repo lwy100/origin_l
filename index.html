@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Space+Grotesk:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css?v=20260714-5" />
+  <link rel="stylesheet" href="assets/css/main.css?v=20260714-6" />
 </head>
 <body data-theme="neon">
   <div class="ambient" aria-hidden="true"></div>
@@ -109,7 +109,12 @@
       <div class="section-head compact">
         <p class="section-index">01 / TRAVEL MAP</p>
         <h2 class="section-title">把想去的地方，<br>一站一站点亮。</h2>
-        <p class="section-lead">从世界遗产到城市街巷，按区域浏览目的地。点亮记录只保存在你的浏览器里。</p>
+        <p class="section-lead">从世界遗产到城市街巷，按区域浏览目的地。点亮的是我的真实足迹，所有访客都能看到；你也可以用“我也去过”留下自己的同行标记。</p>
+        <div class="owner-controls" id="owner-controls">
+          <button type="button" id="owner-login">站主登录</button>
+          <button type="button" id="owner-logout" hidden>退出管理</button>
+          <span id="owner-status" role="status">访客浏览模式</span>
+        </div>
       </div>
       <div class="travel-summary" aria-label="旅行统计">
         <div><b id="visited-count">0</b><span>已点亮</span></div>
@@ -177,7 +182,7 @@
     <p>Anonymous traveler · collecting places and small joys · © <span id="year"></span></p>
   </footer>
 
-  <script src="assets/js/config.js?v=20260714-5"></script>
-  <script type="module" src="assets/js/app.js?v=20260714-5"></script>
+  <script src="assets/js/config.js?v=20260714-6"></script>
+  <script type="module" src="assets/js/app.js?v=20260714-6"></script>
 </body>
 </html>

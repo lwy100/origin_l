@@ -62,4 +62,14 @@ window.SIGNAL_GARDEN_SUPABASE = {
 };
 ```
 
-浏览器端绝不能填写 `service_role` 或 secret key。共享数据包括旅行地留言、“我也去过”累计点赞和短句累计点赞；旅行足迹仍只保存在访客自己的浏览器中。
+浏览器端绝不能填写 `service_role` 或 secret key。共享数据包括站主点亮足迹、旅行地留言、“我也去过”累计点赞和短句累计点赞。访客只能查看站主足迹；使用站主邮箱的 Supabase Magic Link 登录后才能修改点亮状态。
+
+
+### 站主登录设置
+
+在 Supabase Dashboard 的 Authentication / URL Configuration 中：
+
+- Site URL 设置为 `https://lwy100.github.io/origin_l/`
+- Redirect URLs 添加 `http://127.0.0.1:4173/**` 和 `https://lwy100.github.io/origin_l/**`
+
+页面中的“站主登录”会向 `assets/js/config.js` 里的 `ownerEmail` 发送 Magic Link。`supabase/schema.sql` 的 RLS 也限制只有该邮箱可以写入 `owner_visits`。

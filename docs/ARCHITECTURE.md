@@ -41,4 +41,4 @@ The repository publishes as a static site from `main` through GitHub Pages. Beca
 
 ## Shared data
 
-`supabase/schema.sql` creates public comment storage, aggregate-like views, and controlled toggle RPCs. The frontend uses only the public Project URL plus publishable/anon key from `assets/js/config.js`. Row Level Security remains enabled, raw like tables are not exposed to browser roles, and the service-role key is never used client-side.
+`supabase/schema.sql` creates public comment storage, owner-only shared travel footprints, aggregate-like views, and controlled toggle RPCs. The frontend uses only the public Project URL plus publishable/anon key from `assets/js/config.js`. Row Level Security remains enabled, raw like tables are not exposed to browser roles, and the service-role key is never used client-side.
