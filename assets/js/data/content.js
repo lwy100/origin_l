@@ -32,3 +32,22 @@ export const loopCopy = [
 export const contact = {
   email: "1142516819@qq.com"
 };
+
+export const quoteCollections = {
+  freedom: [
+    { id: "freedom-wild", text: "人生不是轨道，是旷野。", source: "网络流行短句" },
+    { id: "freedom-page", text: "风吹哪页，就读哪页。", source: "网络流行短句" },
+    { id: "freedom-answer", text: "旷野没有标准答案，走出去就是答案。", source: "旅行短句" },
+    { id: "freedom-turn", text: "允许一切发生，也允许自己转身。", source: "生活短句" },
+    { id: "freedom-distance", text: "山高路远，看世界，也找自己。", source: "旅行短句" },
+    { id: "freedom-wind", text: "先成为自己的风，再去吹向想去的地方。", source: "生活短句" }
+  ],
+  love: [
+    { id: "love-moon", text: "愿我如星君如月，夜夜流光相皎洁。", source: "范成大《车遥遥篇》" },
+    { id: "love-cloud", text: "晓看天色暮看云，行也思君，坐也思君。", source: "唐寅《一剪梅》" },
+    { id: "love-dice", text: "玲珑骰子安红豆，入骨相思知不知。", source: "温庭筠《南歌子词二首》" },
+    { id: "love-tree", text: "山有木兮木有枝，心悦君兮君不知。", source: "《越人歌》" },
+    { id: "love-glance", text: "只缘感君一回顾，使我思君朝与暮。", source: "《古相思曲》" },
+    { id: "love-sea", text: "海水梦悠悠，君愁我亦愁。", source: "温庭筠《南歌子》" }
+  ]
+};

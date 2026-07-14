@@ -113,7 +113,7 @@ body[data-theme="ink"] .hero h1 { letter-spacing: .01em; }
 
 .hero-companion {
   position: relative;
-  min-height: 570px;
+  min-height: 700px;
 }
 
 .spark-card {
@@ -153,7 +153,7 @@ body[data-theme="ink"] .hero h1 { letter-spacing: .01em; }
   .hero, .about-section, .contact-section { grid-template-columns: 1fr; }
   .hero { min-height: auto; padding-top: 72px; }
   .hero-copy { max-width: 760px; }
-  .hero-companion { width: min(100%, 660px); min-height: 560px; margin-inline: auto; }
+  .hero-companion { width: min(100%, 720px); min-height: 720px; margin-inline: auto; }
   .spark-card { position: static; grid-column: 1; margin-top: -18px; }
 }
 
@@ -190,5 +190,5 @@ body[data-theme="ink"] .hero h1 { letter-spacing: .01em; }
   .site-nav .nav-contact { margin: 4px 0 0; text-align: center; }
   .hero { padding-top: 54px; }
   .hero h1 { font-size: clamp(52px, 16vw, 78px); }
-  .hero-companion { min-height: 490px; }
+  .hero-companion { min-height: 680px; }
 }

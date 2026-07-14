@@ -27,7 +27,7 @@ This site is a static, dependency-free GitHub Pages project. It is structured li
 
 - Add new page copy or widget data in `assets/js/data/content.js` when possible.
 - Add or edit travel destinations, hot recommendations, city-walk entries, and province-to-region mapping in `assets/js/data/places.js`.
-- Add new interactions as small files in `assets/js/modules/`, then import them in `assets/js/app.js`. The Taotao sprite state machine and pointer tracking live in `pet.js`; viewport reveal motion lives in `reveal.js`.
+- Add new interactions as small files in `assets/js/modules/`, then import them in `assets/js/app.js`. The Taotao sprite state machine, pointer tracking, and click movement live in `pet.js`; quote switching and local likes live in `quotes.js`; viewport reveal motion lives in `reveal.js`.
 - Add new theme variables in `assets/css/tokens.css`.
 - Put reusable component styles in `assets/css/components.css`; keep page-level grids in `assets/css/layout.css`.
 - Avoid build tools until the site needs routing, a CMS, or many pages.

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Space+Grotesk:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/main.css?v=20260714-4" />
 </head>
 <body data-theme="neon">
   <div class="ambient" aria-hidden="true"></div>
@@ -45,26 +45,28 @@
           <div class="orbit orbit-one" aria-hidden="true"></div>
           <div class="orbit orbit-two" aria-hidden="true"></div>
           <div class="pet-floor" aria-hidden="true"></div>
-          <p class="pet-status" id="pet-status" aria-live="polite">桃桃正在花园里发呆</p>
-          <button class="pet-character" id="pet-character" type="button" aria-label="和桃桃打招呼">
-            <span class="pet-sprite" id="pet-sprite" aria-hidden="true"></span>
-          </button>
           <div class="pet-actions" aria-label="和桃桃互动">
             <button type="button" data-pet-action="wave">打招呼</button>
             <button type="button" data-pet-action="jump">一起玩</button>
             <button type="button" data-pet-action="review">看地图</button>
           </div>
-          <p class="pet-note"><span>桃桃</span> 会看向你的鼠标<br>点她或选一个互动吧</p>
+          <button class="pet-character" id="pet-character" type="button" aria-label="和桃桃打招呼">
+            <span class="pet-status" id="pet-status" aria-live="polite">桃桃正看着你</span>
+            <span class="pet-sprite" id="pet-sprite" aria-hidden="true"></span>
+          </button>
         </div>
-        <aside class="lab-card" aria-label="个人关键词面板">
-          <div class="signal"><span></span><span></span><span></span></div>
-          <p class="lab-kicker">TODAY'S MOOD</p>
-          <h2>保持好奇，<br>偶尔出走。</h2>
-          <ul>
-            <li><b>01</b><span>去没走过的街道散步</span></li>
-            <li><b>02</b><span>收集风景、食物和小故事</span></li>
-            <li><b>03</b><span>给平常日子留一点期待</span></li>
-          </ul>
+        <aside class="quote-card" id="quote-card" aria-label="自由与心动短句">
+          <div class="quote-tabs" role="tablist" aria-label="短句分类">
+            <button class="quote-swatch quote-swatch-warm active" type="button" role="tab" aria-label="切换到旷野短句" aria-selected="true" data-quote-category="freedom"><span class="visually-hidden">旷野短句</span></button>
+            <button class="quote-swatch quote-swatch-soft" type="button" role="tab" aria-label="切换到含蓄诗句" aria-selected="false" data-quote-category="love"><span class="visually-hidden">含蓄诗句</span></button>
+          </div>
+          <p class="quote-label" id="quote-label">FREE SPIRIT</p>
+          <blockquote id="quote-text">人生不是轨道，是旷野。</blockquote>
+          <p class="quote-source" id="quote-source">网络流行短句</p>
+          <div class="quote-actions">
+            <button type="button" id="quote-refresh">换一句</button>
+            <button type="button" id="quote-like" aria-pressed="false"><span aria-hidden="true">♡</span> <b id="quote-like-count">0</b></button>
+          </div>
         </aside>
       </div>
       <p class="spark-card" id="spark-card" aria-live="polite">出门签：先把想去的地方收藏起来，快乐会自己发芽。</p>
@@ -175,6 +177,6 @@
     <p>Anonymous traveler · collecting places and small joys · © <span id="year"></span></p>
   </footer>
 
-  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/app.js?v=20260714-4"></script>
 </body>
 </html>
