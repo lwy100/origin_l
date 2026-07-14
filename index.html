@@ -41,31 +41,20 @@
       </div>
 
       <div class="hero-companion" data-reveal style="--reveal-delay: 120ms">
-        <div class="dog-stage" id="dog-stage" aria-label="一只会跟随鼠标转头的小狗">
+        <div class="pet-stage" id="pet-stage" aria-label="互动伙伴桃桃。移动鼠标时她会转头，点击她会做出回应。">
           <div class="orbit orbit-one" aria-hidden="true"></div>
           <div class="orbit orbit-two" aria-hidden="true"></div>
-          <div class="dog-shadow" aria-hidden="true"></div>
-          <div class="dog" id="dog">
-            <div class="dog-tail" aria-hidden="true"></div>
-            <div class="dog-body" aria-hidden="true">
-              <span class="dog-spot"></span>
-              <span class="dog-paw dog-paw-left"></span>
-              <span class="dog-paw dog-paw-right"></span>
-            </div>
-            <div class="dog-head" id="dog-head" aria-hidden="true">
-              <span class="dog-ear dog-ear-left"></span>
-              <span class="dog-ear dog-ear-right"></span>
-              <span class="dog-face">
-                <span class="dog-brow dog-brow-left"></span>
-                <span class="dog-brow dog-brow-right"></span>
-                <span class="dog-eye dog-eye-left"><i></i></span>
-                <span class="dog-eye dog-eye-right"><i></i></span>
-                <span class="dog-muzzle"><i class="dog-nose"></i><i class="dog-mouth"></i><i class="dog-tongue"></i></span>
-              </span>
-              <span class="dog-collar"></span>
-            </div>
+          <div class="pet-floor" aria-hidden="true"></div>
+          <p class="pet-status" id="pet-status" aria-live="polite">桃桃正在花园里发呆</p>
+          <button class="pet-character" id="pet-character" type="button" aria-label="和桃桃打招呼">
+            <span class="pet-sprite" id="pet-sprite" aria-hidden="true"></span>
+          </button>
+          <div class="pet-actions" aria-label="和桃桃互动">
+            <button type="button" data-pet-action="wave">打招呼</button>
+            <button type="button" data-pet-action="jump">一起玩</button>
+            <button type="button" data-pet-action="review">看地图</button>
           </div>
-          <p class="dog-note"><span>HI!</span> 我会看着你的鼠标<br>手机上点我也会回应</p>
+          <p class="pet-note"><span>桃桃</span> 会看向你的鼠标<br>点她或选一个互动吧</p>
         </div>
         <aside class="lab-card" aria-label="个人关键词面板">
           <div class="signal"><span></span><span></span><span></span></div>
@@ -84,7 +73,7 @@
     <section id="versions" class="section-shell versions-section">
       <div class="section-head">
         <h2 class="section-title">换一种心情看花园</h2>
-        <p class="section-lead">内容不变，心情可以切换。四套配色会同步改变小狗和整座花园。</p>
+        <p class="section-lead">内容不变，心情可以切换。四套配色会同步改变桃桃身边的花园。</p>
       </div>
       <div class="theme-grid" role="list" aria-label="风格选择">
         <button class="theme-card active" type="button" data-set-theme="neon" role="listitem">

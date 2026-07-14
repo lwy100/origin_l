@@ -7,7 +7,7 @@ import { initMenu } from "./modules/menu.js";
 import { initThemes } from "./modules/themes.js";
 import { initRecommendations } from "./modules/recommendations.js";
 import { initTravelLab } from "./modules/travelLab.js";
-import { initDog } from "./modules/dog.js";
+import { initPet } from "./modules/pet.js";
 import { initReveal } from "./modules/reveal.js";
 
 initMenu();
@@ -17,7 +17,7 @@ initLoop(loopCopy);
 initTravelLab(placesByRegion);
 initRecommendations({ hotDestinations, cityWalks });
 initContact(contact.email);
-initDog();
+initPet();
 initReveal();
 
 document.querySelector("#year").textContent = new Date().getFullYear();

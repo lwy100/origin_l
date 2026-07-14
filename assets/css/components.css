@@ -1,7 +1,5 @@
-/* Hero companion and dog */
-.dog-stage {
-  --pupil-x: 0px;
-  --pupil-y: 0px;
+/* Hero companion and Taotao pet */
+.pet-stage {
   position: absolute;
   top: 0;
   right: 2%;
@@ -15,9 +13,8 @@
     linear-gradient(145deg, var(--panel-strong), color-mix(in srgb, var(--accent-soft) 52%, var(--bg)));
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .55);
   isolation: isolate;
-  cursor: crosshair;
 }
-.dog-stage::before {
+.pet-stage::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -31,244 +28,130 @@
   position: absolute;
   border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
   border-radius: 50%;
+  pointer-events: none;
 }
 .orbit-one { width: 74%; height: 74%; left: -20%; top: -20%; }
 .orbit-two { width: 45%; height: 45%; right: -14%; bottom: -8%; border-style: dashed; }
-.dog-shadow {
-  position: absolute;
-  right: 16%;
-  bottom: 12%;
-  width: 52%;
-  height: 9%;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--text) 18%, transparent);
-  filter: blur(9px);
-}
-.dog {
-  position: absolute;
-  right: 10%;
-  bottom: 12%;
-  width: 68%;
-  height: 72%;
-  transform-origin: 50% 100%;
-}
-.dog-body {
-  position: absolute;
-  right: 12%;
-  bottom: 0;
-  width: 66%;
-  height: 52%;
-  border: 2px solid color-mix(in srgb, var(--dog-fur-dark) 36%, transparent);
-  border-radius: 48% 52% 40% 42% / 44% 44% 34% 34%;
-  background: var(--dog-fur);
-  box-shadow: inset -16px -18px 0 color-mix(in srgb, var(--dog-fur-dark) 11%, transparent);
-}
-.dog-spot {
-  position: absolute;
-  right: 12%;
-  top: 22%;
-  width: 32%;
-  height: 26%;
-  border-radius: 47% 53% 55% 45%;
-  background: color-mix(in srgb, var(--dog-fur-dark) 70%, transparent);
-  transform: rotate(-12deg);
-}
-.dog-paw {
-  position: absolute;
-  bottom: -3%;
-  width: 27%;
-  height: 27%;
-  border: 2px solid color-mix(in srgb, var(--dog-fur-dark) 30%, transparent);
-  border-radius: 45% 45% 36% 36%;
-  background: var(--dog-cream);
-}
-.dog-paw::after {
-  content: "";
+.pet-floor {
   position: absolute;
   left: 50%;
-  bottom: 9%;
-  width: 1px;
-  height: 32%;
-  background: color-mix(in srgb, var(--dog-fur-dark) 32%, transparent);
-}
-.dog-paw-left { left: 7%; }
-.dog-paw-right { right: 7%; }
-.dog-tail {
-  position: absolute;
-  right: -3%;
-  bottom: 18%;
-  width: 38%;
-  height: 15%;
-  border: 17px solid var(--dog-fur);
-  border-bottom-color: transparent;
-  border-left-color: transparent;
+  bottom: 16%;
+  width: 44%;
+  height: 7%;
   border-radius: 50%;
-  transform: rotate(20deg);
-  transform-origin: 0 50%;
-  animation: tail-wag 1.25s ease-in-out infinite alternate;
+  background: color-mix(in srgb, var(--text) 16%, transparent);
+  filter: blur(8px);
+  transform: translateX(-50%);
 }
-.dog-head {
-  --look-x: 0deg;
-  --look-y: 0deg;
+.pet-character {
   position: absolute;
   z-index: 3;
-  left: 2%;
-  top: 2%;
-  width: 69%;
-  height: 62%;
-  transform: perspective(500px) rotateY(var(--look-x)) rotateX(var(--look-y));
-  transform-origin: 56% 78%;
-  will-change: transform;
+  left: 50%;
+  bottom: 15%;
+  width: 192px;
+  height: 208px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateX(-50%) scale(1.35);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 16px 18px rgba(83, 45, 35, .18));
+  transition: filter .2s ease;
 }
-.dog-face {
+.pet-character:hover { filter: drop-shadow(0 18px 20px rgba(83, 45, 35, .24)); }
+.pet-character:active { transform: translateX(-50%) scale(1.3); }
+.pet-sprite {
+  --pet-x: 0px;
+  --pet-y: 0px;
+  display: block;
+  width: 192px;
+  height: 208px;
+  background-image: url("../pets/taotao/spritesheet.webp");
+  background-repeat: no-repeat;
+  background-position: var(--pet-x) var(--pet-y);
+  background-size: 1536px 2288px;
+  image-rendering: auto;
+}
+.pet-status {
   position: absolute;
-  inset: 7% 4% 3%;
-  border: 2px solid color-mix(in srgb, var(--dog-fur-dark) 38%, transparent);
-  border-radius: 48% 52% 45% 49% / 44% 46% 54% 56%;
-  background: var(--dog-fur);
-  box-shadow: inset -14px -12px 0 color-mix(in srgb, var(--dog-fur-dark) 10%, transparent);
+  z-index: 5;
+  top: 7%;
+  left: 50%;
+  max-width: 76%;
+  margin: 0;
+  padding: 9px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-radius: 999px;
+  color: var(--text);
+  background: color-mix(in srgb, var(--panel-strong) 92%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--text) 7%, transparent);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateX(-50%);
+  transition: transform .2s ease, background .2s ease;
 }
-.dog-face::after {
+.pet-status::after {
   content: "";
-  position: absolute;
-  left: 42%;
-  top: 0;
-  width: 30%;
-  height: 45%;
-  border-radius: 46% 54% 66% 34%;
-  background: color-mix(in srgb, var(--dog-cream) 75%, transparent);
-  transform: rotate(6deg);
-}
-.dog-ear {
-  position: absolute;
-  z-index: -1;
-  top: 2%;
-  width: 34%;
-  height: 52%;
-  border: 2px solid color-mix(in srgb, var(--dog-fur-dark) 42%, transparent);
-  background: var(--dog-fur-dark);
-}
-.dog-ear-left { left: -6%; border-radius: 60% 30% 60% 42%; transform: rotate(-20deg); }
-.dog-ear-right { right: -7%; border-radius: 30% 60% 42% 60%; transform: rotate(21deg); }
-.dog-eye {
-  position: absolute;
-  z-index: 2;
-  top: 39%;
-  width: 14%;
-  aspect-ratio: .9;
-  overflow: hidden;
-  border-radius: 50%;
-  background: #fffdf6;
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dog-fur-dark) 28%, transparent);
-}
-.dog-eye-left { left: 25%; }
-.dog-eye-right { right: 23%; }
-.dog-eye i {
   position: absolute;
   left: 50%;
-  top: 50%;
-  width: 56%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #25241f;
-  transform: translate(calc(-50% + var(--pupil-x)), calc(-50% + var(--pupil-y)));
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  background: var(--panel-strong);
+  transform: translateX(-50%) rotate(45deg);
 }
-.dog-eye i::after {
-  content: "";
+.pet-actions {
   position: absolute;
-  top: 16%;
-  left: 16%;
-  width: 28%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: white;
+  z-index: 6;
+  top: 20%;
+  right: 6%;
+  left: 6%;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
 }
-.dog-brow {
-  position: absolute;
-  z-index: 4;
-  top: 31%;
-  width: 14%;
-  height: 4%;
+.pet-actions button {
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: var(--dog-fur-dark);
+  color: var(--text);
+  background: color-mix(in srgb, var(--panel-strong) 90%, transparent);
+  box-shadow: 0 7px 18px color-mix(in srgb, var(--text) 7%, transparent);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: transform .18s ease, border-color .18s ease, color .18s ease, background .18s ease;
 }
-.dog-brow-left { left: 24%; transform: rotate(8deg); }
-.dog-brow-right { right: 22%; transform: rotate(-8deg); }
-.dog-muzzle {
+.pet-actions button:hover { border-color: var(--accent); color: #fff; background: var(--accent); transform: translateY(-2px); }
+.pet-actions button:active { transform: translateY(0) scale(.97); }
+.pet-note {
   position: absolute;
   z-index: 4;
-  left: 34%;
-  bottom: 10%;
-  width: 36%;
-  height: 35%;
-  border-radius: 48% 48% 52% 52%;
-  background: var(--dog-cream);
-}
-.dog-nose {
-  position: absolute;
-  left: 35%;
-  top: 8%;
-  width: 31%;
-  height: 25%;
-  border-radius: 50% 50% 45% 45%;
-  background: #29251f;
-}
-.dog-mouth {
-  position: absolute;
-  left: 49%;
-  top: 34%;
-  width: 2px;
-  height: 28%;
-  background: #5b3627;
-}
-.dog-mouth::after {
-  content: "";
-  position: absolute;
-  left: -13px;
-  bottom: -3px;
-  width: 26px;
-  height: 12px;
-  border-bottom: 2px solid #5b3627;
-  border-radius: 50%;
-}
-.dog-tongue {
-  position: absolute;
-  left: 42%;
-  bottom: -8%;
-  width: 18%;
-  height: 25%;
-  border-radius: 0 0 999px 999px;
-  background: #ee7c7c;
-  opacity: 0;
-}
-.dog-collar {
-  position: absolute;
-  left: 28%;
-  bottom: -2%;
-  width: 52%;
-  height: 9%;
-  border-radius: 999px;
-  background: var(--accent);
-  transform: rotate(-4deg);
-}
-.dog-note {
-  position: absolute;
-  z-index: 4;
-  left: 7%;
-  bottom: 7%;
+  left: 6%;
+  bottom: 17%;
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  line-height: 1.55;
+  line-height: 1.5;
   transform: rotate(-4deg);
 }
-.dog-note span { display: block; color: var(--accent); font: 900 18px/1 "Space Grotesk", sans-serif; }
-.dog-stage:hover .dog-tongue, .dog-stage.is-happy .dog-tongue { opacity: 1; }
-.dog-stage.is-happy .dog { animation: dog-bounce .55s cubic-bezier(.2, .8, .2, 1); }
+.pet-note span { display: block; color: var(--accent); font: 900 17px/1 "Space Grotesk", sans-serif; }
+.pet-stage.pet-pop .pet-character { animation: pet-pop .6s cubic-bezier(.2, .8, .2, 1); }
+.pet-stage[data-pet-state="thinking"] .pet-status,
+.pet-stage[data-pet-state="review"] .pet-status { background: color-mix(in srgb, var(--accent-soft) 72%, var(--panel-strong)); }
 
-@keyframes tail-wag { to { transform: rotate(38deg); } }
-@keyframes dog-bounce { 45% { transform: translateY(-16px) rotate(-2deg); } }
+@keyframes pet-pop {
+  0%, 100% { transform: translateX(-50%) scale(1.35); }
+  45% { transform: translateX(-50%) translateY(-15px) scale(1.42) rotate(-2deg); }
+}
 
 .lab-card {
   position: absolute;
@@ -458,7 +341,7 @@
 footer { width: min(100%, 1440px); margin-inline: auto; padding: 30px clamp(20px, 5vw, 72px) 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; font-weight: 700; }
 
 body[data-theme="pixel"] .site-header,
-body[data-theme="pixel"] .dog-stage,
+body[data-theme="pixel"] .pet-stage,
 body[data-theme="pixel"] .lab-card,
 body[data-theme="pixel"] .theme-grid,
 body[data-theme="pixel"] .place-card,
@@ -480,9 +363,9 @@ body[data-theme="ink"] .brand-mark { border-radius: 50%; font-family: "Long Cang
 }
 
 @media (max-width: 700px) {
-  .dog-stage { right: 0; width: 94%; }
+  .pet-stage { right: 0; width: 94%; }
   .lab-card { right: 0; width: min(76%, 300px); padding: 19px; }
-  .dog-note { display: none; }
+  .pet-note { display: none; }
   .theme-grid, .mood-board, .loop-panel { grid-template-columns: 1fr; }
   .theme-card { min-height: 142px; }
   .theme-card span { margin-bottom: 22px; }
@@ -495,10 +378,10 @@ body[data-theme="ink"] .brand-mark { border-radius: 50%; font-family: "Long Cang
 }
 
 @media (max-width: 430px) {
-  .dog-stage { width: 100%; }
+  .pet-stage { width: 100%; }
   .lab-card { bottom: -2%; width: 78%; }
   .lab-card h2 { font-size: 25px; }
-  .dog-note { display: none; }
+  .pet-note { display: none; }
   .hero-companion { min-height: 430px; }
   .travel-summary span { font-size: 11px; }
 }
