@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="一位有大模型背景的年轻人的匿名主页：轻松、活泼、爱旅行，也爱把有趣东西做出来。" />
-  <title>Signal Garden · 旅行和一点点大模型</title>
+  <meta name="description" content="一个关于旅行、散步和日常灵感的匿名主页：轻松、活泼，认真收藏每一次出发。" />
+  <title>Signal Garden · 旅行、散步和日常灵感</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Space+Grotesk:wght@500;700;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
@@ -12,86 +12,113 @@
 </head>
 <body data-theme="neon">
   <div class="ambient" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="回到首页">
-      <span class="brand-mark">PT</span>
+      <span class="brand-mark" aria-hidden="true">SG</span>
       <span>Signal Garden</span>
     </a>
     <button class="menu-button" aria-expanded="false" aria-controls="site-nav">菜单</button>
     <nav id="site-nav" class="site-nav" aria-label="主导航">
-      <a href="#versions">选风格</a>
       <a href="#about">关于</a>
-      <a href="#travel-lab">旅行实验室</a>
+      <a href="#travel-lab">旅行地图</a>
       <a href="#recommendations">随机推荐</a>
       <a href="#playground">玩具箱</a>
-      <a href="#contact">联系</a>
+      <a class="nav-contact" href="#contact">联系我</a>
     </nav>
   </header>
 
-  <main id="top">
-    <section class="hero section-shell">
-      <div class="hero-copy">
-        <p class="eyebrow"> 大模型背景 / 旅行脑袋</p>
+  <main id="main-content">
+    <section id="top" class="hero section-shell">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">WANDER SLOWLY · LIVE LIGHTLY</p>
         <h1>生活要松弛，<br><span>地图要点亮。</span></h1>
-        <p class="hero-text">时间和空间留给好玩的网页、小实验、旅行清单和一点点年轻人的快乐野心。</p>
+        <p class="hero-text">认真生活，随时散步，也收藏下一次出发。</p>
         <div class="hero-actions">
-          <a class="button primary" href="#travel-lab">逛旅行实验室</a>
+          <a class="button primary" href="#travel-lab">打开旅行地图</a>
           <button class="button secondary" type="button" id="spark-button">抽一张出门签</button>
         </div>
       </div>
-      <aside class="lab-card" aria-label="个人关键词面板">
-        <div class="signal"><span></span><span></span><span></span></div>
-        <h2>Today mood</h2>
-        <ul>
-          <li><b>背景</b><span>搞大模型ing</span></li>
-          <li><b>状态</b><span>想出去玩，也想把网页做好</span></li>
-          <li><b>爱好</b><span>旅行打卡、奇怪小工具、灵感收集</span></li>
-          <li><b>人设</b><span>轻松活泼，但靠谱</span></li>
-        </ul>
-      </aside>
+
+      <div class="hero-companion" data-reveal style="--reveal-delay: 120ms">
+        <div class="dog-stage" id="dog-stage" aria-label="一只会跟随鼠标转头的小狗">
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="dog-shadow" aria-hidden="true"></div>
+          <div class="dog" id="dog">
+            <div class="dog-tail" aria-hidden="true"></div>
+            <div class="dog-body" aria-hidden="true">
+              <span class="dog-spot"></span>
+              <span class="dog-paw dog-paw-left"></span>
+              <span class="dog-paw dog-paw-right"></span>
+            </div>
+            <div class="dog-head" id="dog-head" aria-hidden="true">
+              <span class="dog-ear dog-ear-left"></span>
+              <span class="dog-ear dog-ear-right"></span>
+              <span class="dog-face">
+                <span class="dog-brow dog-brow-left"></span>
+                <span class="dog-brow dog-brow-right"></span>
+                <span class="dog-eye dog-eye-left"><i></i></span>
+                <span class="dog-eye dog-eye-right"><i></i></span>
+                <span class="dog-muzzle"><i class="dog-nose"></i><i class="dog-mouth"></i><i class="dog-tongue"></i></span>
+              </span>
+              <span class="dog-collar"></span>
+            </div>
+          </div>
+          <p class="dog-note"><span>HI!</span> 我会看着你的鼠标<br>手机上点我也会回应</p>
+        </div>
+        <aside class="lab-card" aria-label="个人关键词面板">
+          <div class="signal"><span></span><span></span><span></span></div>
+          <p class="lab-kicker">TODAY'S MOOD</p>
+          <h2>保持好奇，<br>偶尔出走。</h2>
+          <ul>
+            <li><b>01</b><span>去没走过的街道散步</span></li>
+            <li><b>02</b><span>收集风景、食物和小故事</span></li>
+            <li><b>03</b><span>给平常日子留一点期待</span></li>
+          </ul>
+        </aside>
+      </div>
       <p class="spark-card" id="spark-card" aria-live="polite">出门签：先把想去的地方收藏起来，快乐会自己发芽。</p>
     </section>
 
     <section id="versions" class="section-shell versions-section">
       <div class="section-head">
-        <p class="eyebrow">四版视觉方向</p>
-        <h2 class="section-title">你可以直接点着挑</h2>
-        <p class="section-lead">不是四个完全独立页面，而是四套视觉皮肤。你选中喜欢的方向后，我可以继续把那一版深化成最终主页。</p>
+        <h2 class="section-title">换一种心情看花园</h2>
+        <p class="section-lead">内容不变，心情可以切换。四套配色会同步改变小狗和整座花园。</p>
       </div>
       <div class="theme-grid" role="list" aria-label="风格选择">
         <button class="theme-card active" type="button" data-set-theme="neon" role="listitem">
-          <span>01</span><b>霓虹训练场</b><small>年轻、技术感、最有冲劲</small>
+          <span>01</span><b>日落橘汽水</b><small>明亮、热烈、元气满满</small>
         </button>
         <button class="theme-card" type="button" data-set-theme="paper" role="listitem">
-          <span>02</span><b>纸上实验室</b><small>书卷气 + 工程笔记</small>
+          <span>02</span><b>旧书与远方</b><small>安静、温暖、适合慢读</small>
         </button>
         <button class="theme-card" type="button" data-set-theme="pixel" role="listitem">
           <span>03</span><b>像素游乐园</b><small>活泼、轻松、有记忆点</small>
         </button>
         <button class="theme-card" type="button" data-set-theme="ink" role="listitem">
-          <span>04</span><b>水墨终端</b><small>古风保留，但更聪明</small>
+          <span>04</span><b>山林夜游</b><small>安静、深邃、有一点诗意</small>
         </button>
       </div>
     </section>
 
     <section id="about" class="section-shell about-section">
       <div>
-        <p class="eyebrow">关于</p>
-        <h2 class="section-title">轻轻透露一点背景</h2>
-        <p class="section-lead">有一点大模型相关技术背景，。但这个主页不打算变成简历，更多是放松、记录、打卡、分享一些想去和去过的地方。</p>
+        <h2 class="section-title">这里不赶时间，<br>只收藏喜欢的生活。</h2>
+        <p class="section-lead">这里用来记录旅行、散步、风景和偶尔冒出来的小灵感，也认真规划下一次出发。</p>
       </div>
       <div class="mood-board">
-        <article><span>LLM</span><h3>一点技术底色</h3><p>懂一些模型、和agent 。</p></article>
-        <article><span>FUN</span><h3>一点活泼能量</h3><p>喜欢把想法做成能点、能玩、能继续长大的小页面。</p></article>
-        <article><span>MAP</span><h3>很多旅行欲望</h3><p>5A、古镇、雪山、海岛、城市漫游，都想慢慢点亮。</p></article>
+        <article class="mood-primary"><span>SLOW</span><h3>慢一点也很好</h3><p>不赶着把每一天塞满，给散步、发呆和突然改变路线留一点空间。</p></article>
+        <article><span>FUN</span><h3>好玩很重要</h3><p>收藏奇怪的小店、好吃的东西，以及那些让普通日子突然发亮的瞬间。</p></article>
+        <article><span>MAP</span><h3>地图要慢慢亮</h3><p>古镇、雪山、海岛和城市街巷，都值得留一个期待的位置。</p></article>
       </div>
     </section>
 
     <section id="travel-lab" class="section-shell travel-section">
       <div class="section-head compact">
-        <p class="eyebrow">旅行实验室</p>
-        <h2 class="section-title">去过 / 没去过的好地方</h2>
-        <p class="section-lead">灵感来自小姜实验室的足迹板块：把 5A 景区、世界遗产和一些小众/高热目的地放在一起。区域先简化成西南、西北、中部、东北、东南，点击“点亮足迹”会本地记录在你的浏览器里。</p>
+        <p class="section-index">01 / TRAVEL MAP</p>
+        <h2 class="section-title">把想去的地方，<br>一站一站点亮。</h2>
+        <p class="section-lead">从世界遗产到城市街巷，按区域浏览目的地。点亮记录只保存在你的浏览器里。</p>
       </div>
       <div class="travel-summary" aria-label="旅行统计">
         <div><b id="visited-count">0</b><span>已点亮</span></div>
@@ -105,9 +132,8 @@
 
     <section id="recommendations" class="section-shell recommendation-section">
       <div class="section-head compact">
-        <p class="eyebrow">随机推荐</p>
-        <h2 class="section-title">今天去哪儿玩？</h2>
-        <p class="section-lead">高热旅行地随机抽几张；城市漫游会尝试根据访问 IP 判断城市/省份，优先推荐附近路线。定位失败也没关系，会随机给你几条好走的。</p>
+        <h2 class="section-title">今天去哪儿走走？</h2>
+        <p class="section-lead">随机抽取热门目的地，并尝试按访问位置推荐附近的城市漫游路线。定位失败时会自然切换为随机推荐。</p>
         <button class="button secondary" type="button" data-refresh-recommendations>换一批推荐</button>
       </div>
       <div class="recommend-layout">
@@ -125,9 +151,9 @@
 
     <section id="playground" class="section-shell playground-section">
       <div class="section-head compact">
-        <p class="eyebrow">玩具箱</p>
-        <h2 class="section-title">保留一点能点的东西</h2>
-        <p class="section-lead">主页不必太严肃。点一下下面的小按钮，随机获得一个轻松任务。</p>
+        <p class="section-index">02 / PLAYGROUND</p>
+        <h2 class="section-title">给今天一个<br>很轻的小任务。</h2>
+        <p class="section-lead">不用制定宏大计划，选一个阶段，做一件能马上开始的小事。</p>
       </div>
       <article class="loop-output" aria-live="polite">
         <span id="loop-label">今日任务</span>
@@ -144,9 +170,8 @@
 
     <section id="contact" class="section-shell contact-section">
       <div>
-        <p class="eyebrow">联系</p>
-        <h2 class="section-title">如果你想打个招呼</h2>
-        <p class="section-lead">不署名，但可以收信。旅行建议、网页反馈、好玩的想法，或者大模型相关闲聊，都可以从一封邮件开始。</p>
+        <h2 class="section-title">有好玩的想法，<br>就来敲门。</h2>
+        <p class="section-lead">旅行建议、城市散步路线、好吃的小店，或任何有趣的分享，都可以从一封邮件开始。</p>
       </div>
       <div class="contact-card">
         <span>MAILBOX</span>
@@ -158,7 +183,7 @@
   </main>
 
   <footer>
-    <p>Anonymous LLM-ish traveler · signal garden for fun · © <span id="year"></span></p>
+    <p>Anonymous traveler · collecting places and small joys · © <span id="year"></span></p>
   </footer>
 
   <script type="module" src="assets/js/app.js"></script>
