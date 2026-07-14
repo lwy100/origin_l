@@ -14,7 +14,7 @@ function getConfig() {
   return {
     url: String(config.url || "").replace(/\/$/, ""),
     key: String(config.publishableKey || ""),
-    ownerEmail: String(config.ownerEmail || "").trim().toLowerCase()
+    ownerGithubLogin: String(config.ownerGithubLogin || "").trim().toLowerCase()
   };
 }
 
@@ -132,17 +132,22 @@ export const authApi = {
   async isOwner() {
     const token = await getAccessToken();
     if (!token) return false;
-    return String(decodeJwtPayload(token).email || "").toLowerCase() === getConfig().ownerEmail;
+    const payload = decodeJwtPayload(token);
+    const metadata = payload.user_metadata || {};
+    const githubLogin = String(
+      metadata.user_name || metadata.preferred_username || metadata.name || ""
+    ).trim().toLowerCase();
+    return githubLogin === getConfig().ownerGithubLogin;
   },
 
-  async sendOwnerMagicLink() {
+  signInWithGithub() {
     const config = getConfig();
-    if (!config.ownerEmail) throw new Error("Owner email is not configured");
+    if (!config.ownerGithubLogin) throw new Error("Owner GitHub login is not configured");
     const redirectTo = `${location.origin}${location.pathname}`;
-    await authRequest(`otp?redirect_to=${encodeURIComponent(redirectTo)}`, {
-      method: "POST",
-      body: JSON.stringify({ email: config.ownerEmail, create_user: true })
-    });
+    const authorizeUrl = new URL(`${config.url}/auth/v1/authorize`);
+    authorizeUrl.searchParams.set("provider", "github");
+    authorizeUrl.searchParams.set("redirect_to", redirectTo);
+    location.assign(authorizeUrl.toString());
   },
 
   async signOut() {

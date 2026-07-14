@@ -62,14 +62,26 @@ window.SIGNAL_GARDEN_SUPABASE = {
 };
 ```
 
-浏览器端绝不能填写 `service_role` 或 secret key。共享数据包括站主点亮足迹、旅行地留言、“我也去过”累计点赞和短句累计点赞。访客只能查看站主足迹；使用站主邮箱的 Supabase Magic Link 登录后才能修改点亮状态。
+浏览器端绝不能填写 `service_role` 或 secret key。共享数据包括站主点亮足迹、旅行地留言、“我也去过”累计点赞和短句累计点赞。访客只能查看站主足迹；使用 GitHub 账号 `lwy100` 登录后才能修改点亮状态。
 
 
-### 站主登录设置
+### GitHub 站主登录设置
 
-在 Supabase Dashboard 的 Authentication / URL Configuration 中：
+1. 在 Supabase Dashboard 打开 **Authentication → Providers → GitHub** 并启用。
+2. 按页面提示在 GitHub 创建 OAuth App，将 GitHub Client ID 和 Client Secret 填回 Supabase。
+3. GitHub OAuth App 的 Authorization callback URL 使用 Supabase GitHub Provider 页面展示的 callback URL，通常是：
 
-- Site URL 设置为 `https://lwy100.github.io/origin_l/`
-- Redirect URLs 添加 `http://127.0.0.1:4173/**` 和 `https://lwy100.github.io/origin_l/**`
+```text
+https://你的项目ID.supabase.co/auth/v1/callback
+```
 
-页面中的“站主登录”会向 `assets/js/config.js` 里的 `ownerEmail` 发送 Magic Link。`supabase/schema.sql` 的 RLS 也限制只有该邮箱可以写入 `owner_visits`。
+4. 在 Supabase **Authentication → URL Configuration** 设置：
+   - Site URL：`https://lwy100.github.io/origin_l/`
+   - Redirect URLs：`http://127.0.0.1:4173/**` 和 `https://lwy100.github.io/origin_l/**`
+5. 在 `assets/js/config.js` 中保持：
+
+```js
+ownerGithubLogin: "lwy100"
+```
+
+网页中的“GitHub 站主登录”会跳转 GitHub 授权。`supabase/schema.sql` 的 RLS 根据 GitHub 用户名限制只有 `lwy100` 可以写入 `owner_visits`。

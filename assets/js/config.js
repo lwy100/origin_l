@@ -3,5 +3,5 @@
 window.SIGNAL_GARDEN_SUPABASE = {
   url: "https://rerwusconhveayvjoczf.supabase.co",
   publishableKey: "sb_publishable_WClCesK1T1Wzr1K3Zz3F9Q_f8kFI9J9",
-  ownerEmail: "1142516819@qq.com"
+  ownerGithubLogin: "lwy100"
 };

@@ -119,7 +119,7 @@ export function initTravelLab(placesByRegion) {
                 ${isVisited ? "已点亮 ✓" : "点亮足迹"}
               </button>
             ` : `
-              <span class="wish-state ${isVisited ? "active" : ""}">${isVisited ? "站主已点亮 ✓" : "站主还没去"}</span>
+              <span class="wish-state ${isVisited ? "active" : ""}">${isVisited ? "站主已点亮 ✓" : "有趣的灵魂还没去过"}</span>
             `}
             <button class="like-button ${liked ? "active" : ""}" type="button" data-action="like" data-place-key="${escapeHtml(key)}">
               ${liked ? "❤️" : "🤍"} 我也去过 · ${likeCount}
@@ -257,16 +257,14 @@ export function initTravelLab(placesByRegion) {
     renderPlaces();
   }
 
-  ownerLogin?.addEventListener("click", async () => {
+  ownerLogin?.addEventListener("click", () => {
     ownerLogin.disabled = true;
-    ownerStatus.textContent = "正在发送登录邮件...";
+    ownerStatus.textContent = "正在跳转 GitHub 登录...";
     try {
-      await authApi.sendOwnerMagicLink();
-      ownerStatus.textContent = "登录链接已发送到站主邮箱，请查收。";
+      authApi.signInWithGithub();
     } catch (error) {
       console.error("Owner login failed.", error);
-      ownerStatus.textContent = "登录邮件发送失败，请检查 Supabase Auth 设置。";
-    } finally {
+      ownerStatus.textContent = "GitHub 登录启动失败，请检查 Supabase Auth 设置。";
       ownerLogin.disabled = false;
     }
   });

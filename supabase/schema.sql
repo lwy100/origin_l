@@ -35,18 +35,18 @@ using (true);
 create policy "owner can insert visits"
 on public.owner_visits for insert
 to authenticated
-with check (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+with check (lower(coalesce(auth.jwt() -> 'user_metadata' ->> 'user_name', auth.jwt() -> 'user_metadata' ->> 'preferred_username', '')) = 'lwy100');
 
 create policy "owner can update visits"
 on public.owner_visits for update
 to authenticated
-using (lower(auth.jwt() ->> 'email') = '1142516819@qq.com')
-with check (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+using (lower(coalesce(auth.jwt() -> 'user_metadata' ->> 'user_name', auth.jwt() -> 'user_metadata' ->> 'preferred_username', '')) = 'lwy100')
+with check (lower(coalesce(auth.jwt() -> 'user_metadata' ->> 'user_name', auth.jwt() -> 'user_metadata' ->> 'preferred_username', '')) = 'lwy100');
 
 create policy "owner can delete visits"
 on public.owner_visits for delete
 to authenticated
-using (lower(auth.jwt() ->> 'email') = '1142516819@qq.com');
+using (lower(coalesce(auth.jwt() -> 'user_metadata' ->> 'user_name', auth.jwt() -> 'user_metadata' ->> 'preferred_username', '')) = 'lwy100');
 
 create table if not exists public.place_likes (
   visitor_id uuid not null,
